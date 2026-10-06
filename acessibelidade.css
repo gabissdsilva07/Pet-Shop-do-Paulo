@@ -1,0 +1,201 @@
+/* ===== BOTÃO FLUTUANTE E PAINEL ===== */
+.a11y-abrir {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1000;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    background: #1f4fa3;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+  
+  .a11y-painel {
+    position: fixed;
+    right: 16px;
+    bottom: 78px;
+    z-index: 1000;
+    width: 280px;
+    max-width: calc(100vw - 32px);
+    background: #fff;
+    color: #24331a;
+    border: 3px solid #1f4fa3;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  .a11y-painel[hidden] {
+    display: none;
+  }
+  
+  .a11y-painel h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #1f4fa3;
+  }
+  
+  .a11y-grupo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .a11y-painel button {
+    padding: 10px 8px;
+    border: 2px solid #1f4fa3;
+    border-radius: 10px;
+    background: #fff;
+    color: #1f4fa3;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  
+  .a11y-painel button[aria-pressed="true"] {
+    background: #1f4fa3;
+    color: #fff;
+  }
+  
+  .a11y-painel .a11y-largo {
+    grid-column: 1 / -1;
+  }
+  
+  .a11y-painel .a11y-limpar {
+    width: 100%;
+    border-color: #b00020;
+    color: #b00020;
+  }
+  
+  .a11y-painel button:focus-visible,
+  .a11y-abrir:focus-visible {
+    outline: 3px solid #ffbf00;
+    outline-offset: 2px;
+  }
+  
+  /* ===== LINK "PULAR PARA O CONTEÚDO" ===== */
+  .a11y-pular {
+    position: absolute;
+    left: 8px;
+    top: -60px;
+    z-index: 1001;
+    background: #ffbf00;
+    color: #000;
+    padding: 10px 16px;
+    border-radius: 0 0 10px 10px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  
+  .a11y-pular:focus {
+    top: 0;
+  }
+  
+  /* ===== MODOS ===== */
+  
+  /* Alto contraste */
+  html.a11y-contraste body,
+  html.a11y-contraste .topo,
+  html.a11y-contraste .rodape,
+  html.a11y-contraste .pagina-topo,
+  html.a11y-contraste .blocos,
+  html.a11y-contraste .card,
+  html.a11y-contraste .bloco,
+  html.a11y-contraste .carrossel {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #ffff00 !important;
+  }
+  
+  html.a11y-contraste h1,
+  html.a11y-contraste h2,
+  html.a11y-contraste h3,
+  html.a11y-contraste p,
+  html.a11y-contraste .logo,
+  html.a11y-contraste .descricao h3,
+  html.a11y-contraste .card-corpo h3 {
+    color: #fff !important;
+  }
+  
+  html.a11y-contraste a,
+  html.a11y-contraste .menu a {
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+    background: transparent !important;
+  }
+  
+  html.a11y-contraste .menu a:hover,
+  html.a11y-contraste .menu a[aria-current="page"],
+  html.a11y-contraste .botao {
+    background: #ffff00 !important;
+    color: #000 !important;
+  }
+  
+  html.a11y-contraste .descricao {
+    border-left-color: #ffff00 !important;
+  }
+  
+  /* Sublinhar links */
+  html.a11y-sublinhar a {
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+  }
+  
+  /* Fonte mais legível (sem fontes decorativas) */
+  html.a11y-fonte-legivel body,
+  html.a11y-fonte-legivel h1,
+  html.a11y-fonte-legivel h2,
+  html.a11y-fonte-legivel h3,
+  html.a11y-fonte-legivel .logo,
+  html.a11y-fonte-legivel .slide span {
+    font-family: Verdana, Arial, sans-serif !important;
+    letter-spacing: 0.03em;
+    word-spacing: 0.1em;
+  }
+  
+  html.a11y-fonte-legivel p {
+    line-height: 1.9;
+  }
+  
+  /* Parar animações */
+  html.a11y-sem-animacao *,
+  html.a11y-sem-animacao *::before,
+  html.a11y-sem-animacao *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Escala de cinza */
+  html.a11y-cinza body {
+    filter: grayscale(1);
+  }
+  
+  /* ===== BOTÃO PAUSAR CARROSSEL ===== */
+  .carrossel-pausa {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    padding: 8px 16px;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  
+  .carrossel-pausa:focus-visible {
+    outline: 3px solid #ffbf00;
+    outline-offset: 2px;
+  }

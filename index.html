@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pet do Bem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="acessibilidade.css">
+</head>
+
+<body>
+
+  <header class="topo">
+    <a class="logo" href="index.html">
+      <img class="logo-img"
+        src="https://imgcdn.stablediffusionweb.com/2026/9/29/527c173d-e4d0-47e0-976a-0aa6f7d1f1d5.webp" alt="">
+      <span>Pet do Bem</span>
+    </a>
+    <nav aria-label="Menu principal">
+      <ul class="menu">
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="adocao.html">Pets em adoção</a></li>
+        <li><a href="enderecos.html">Endereços</a></li>
+        <li><a href="doacoes.html">Doações</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="carrossel" aria-label="Destaques do Pet do Bem">
+    <div class="slide ativo"
+      style="background-image: url('https://adimax.com.br/wp-content/uploads/2024/08/cachorro-de-pelo-curto-confira-dicas-e-cuidados.jpg')">
+      <span>Os cachorrinhos mais carentes da região!</span>
+    </div>
+    <div class="slide" aria-hidden="true"
+      style="background-image: url('https://www.direcional.com.br/wp-content/uploads/2022/08/cachorro-para-apartamento.jpg.webp')">
+      <span>Estão esperando um novo lar</span>
+    </div>
+    <div class="slide" aria-hidden="true"
+      style="background-image: url('https://revistaoeste.com/oestegeral/wp-content/uploads/2025/05/cachorro-inclinando-a-cabeca_1748306609817.jpg')">
+      <span>Venha já escolher seu próximo aumigo</span>
+    </div>
+    <div class="slide" aria-hidden="true"
+      style="background-image: url('https://cdn.jornaldaparaiba.com.br/wp-content/uploads/2024/01/1210x720/racas-de-cachorro-3.webp?fallback=https%3A%2F%2Fcdn.jornaldaparaiba.com.br%2Fwp-content%2Fuploads%2F2024%2F01%2Fracas-de-cachorro.jpg%3Fxid%3D650492&xid=650492')">
+      <span>Independente da raça ou idade, eles querem um amigo.</span>
+    </div>
+
+    <button type="button" class="carrossel-pausa" aria-label="Pausar troca automática de imagens">Pausar</button>
+    <div class="bolinhas" aria-label="Escolher imagem"></div>
+  </section>
+
+  <main>
+    <h2 class="titulo-secao" id="sobre">Conheça o Pet do Bem</h2>
+
+    <section class="zigzag">
+
+      <article class="linha">
+        <div class="foto" role="img" aria-label="Foto ilustrando: Pet do Bem"
+          style="background-image: url('https://www.petz.com.br/blog/wp-content/uploads/2020/11/cachorro-gosta-de-carinho-pet-2.jpg')">
+        </div>
+        <div class="descricao">
+          <h3>Pet do Bem</h3>
+          <p>A Pet do Bem é um centro de adoção que nasceu em Foz do Iguaçu, na região do morumbi 2, onde dois jovens
+            empreendedores tiveram a ideia de resgatar animais de rua e de mal cuidados, cuidá-los, e adotar eles para
+            famílias de confiança e que precisam de um animalzinho para amar.</p>
+        </div>
+      </article>
+
+      <article class="linha">
+        <div class="foto" role="img" aria-label="Foto ilustrando: Vacinação"
+          style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbCXKHNd9bl4ZG150KSTezzAtiSbUpg12CpUk_TmcCKyVqbC_SKGp5_TkE&s=10.jpg')">
+        </div>
+        <div class="descricao">
+          <h3>Vacinação</h3>
+          <p>Independente da raça, gênero ou idade, sempre colocamos todos a adoção e garantimos todas as vacinas, e
+            cuidados gerais, dessa forma, os animaizinhos serão acolhidos da melhor forma.</p>
+        </div>
+      </article>
+
+      <article class="linha">
+        <div class="foto" role="img" aria-label="Foto ilustrando: Adoção"
+          style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbC-ejFpIyd420M35y_yVA__Tku_zERc4PSsW7qveqjRhtLCqb4K4X9RA&s=10.jpg')">
+        </div>
+        <div class="descricao">
+          <h3>Adoção</h3>
+          <p>Qualquer um pode vir adotar, apenas pedimos que seja paciente e afetuoso com todos, ache seu aumigo e se
+            divirta com ele.</p>
+        </div>
+      </article>
+
+      <article class="linha">
+        <div class="foto" role="img" aria-label="Foto ilustrando: Parquinho"
+          style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdT6wmVeRQmdCOqALrlqkoUsNSklnX7wb35XgxTVpmVIqf5BT_x71I3JA&s=10')">
+        </div>
+        <div class="descricao">
+          <h3>Parquinho</h3>
+          <p>Temos um parquinho dentro do petshop, para assim os animais se divertirem dentro do pet, e os futuros donos
+            brincarem e escolherem melhor que combine com eles.</p>
+        </div>
+      </article>
+
+      <article class="linha">
+        <div class="foto" role="img" aria-label="Foto ilustrando: Balcão"
+          style="background-image: url('https://peti9.com/wp-content/uploads/2024/10/xxx-78-1-1024x669.png')"></div>
+        <div class="descricao">
+          <h3>Balcão</h3>
+          <p>Nossos atendentes estão preparados para tirar qualquer dúvida sobre documentos, os pets e seus
+            comportamentos, dados sobre o animalzinho, e entre outros assuntos a se discutir.</p>
+        </div>
+      </article>
+
+      <article class="linha">
+        <div class="foto" role="img" aria-label="Foto ilustrando: Veterinária"
+          style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfodP8tzL70jYp4-bLUwtqtRz2pe-Sb5hLDexu77DsRH5j3eK8C9pvZtk&s=10.jpg')">
+        </div>
+        <div class="descricao">
+          <h3>Veterinária</h3>
+          <p>A nossa veterinária é especializada e formada na área de veterinária, todos os doutores estão a disposição
+            para cuidar e salvar nossos animaizinhos de doenças e machucados.</p>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="blocos">
+      <div class="blocos-grade">
+        <a class="bloco" href="sobre.html">
+          <h3>Sobre nós</h3>
+          <p>Conheça nossa história e nossa missão.</p>
+        </a>
+        <a class="bloco" href="adocao.html">
+          <h3>Pets em adoção</h3>
+          <p>Veja quem está esperando por um novo lar.</p>
+        </a>
+        <a class="bloco" href="enderecos.html">
+          <h3>Endereços</h3>
+          <p>Descubra onde nos encontrar.</p>
+        </a>
+        <a class="bloco" href="doacoes.html">
+          <h3>Doações</h3>
+          <p>Saiba como ajudar os nossos amigos.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>&copy; 2026 Pet do Bem</p>
+  </footer>
+
+  <script>
+    // Tempo entre as imagens, em milissegundos (3000 = 3 segundos)
+    const tempo = 3000;
+
+    const slides = document.querySelectorAll(".slide");
+    const caixaBolinhas = document.querySelector(".bolinhas");
+    let atual = 0;
+    let timer;
+    let pausado = false;
+
+    const btnPausa = document.querySelector(".carrossel-pausa");
+    btnPausa.addEventListener("click", () => {
+      pausado = !pausado;
+      btnPausa.textContent = pausado ? "Continuar" : "Pausar";
+      btnPausa.setAttribute("aria-label", pausado ? "Retomar troca automática de imagens" : "Pausar troca automática de imagens");
+    });
+
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.setAttribute("aria-label", "Ir para a imagem " + (i + 1));
+      b.addEventListener("click", () => {
+        mostrar(i);
+        reiniciar();
+      });
+      caixaBolinhas.appendChild(b);
+    });
+    const bolinhas = caixaBolinhas.querySelectorAll("button");
+
+    function mostrar(i) {
+      slides[atual].classList.remove("ativo");
+      slides[atual].setAttribute("aria-hidden", "true");
+      bolinhas[atual].classList.remove("ativo");
+      atual = i;
+      slides[atual].classList.add("ativo");
+      slides[atual].removeAttribute("aria-hidden");
+      bolinhas[atual].classList.add("ativo");
+    }
+
+    function proximo() {
+      if (pausado || document.documentElement.classList.contains("a11y-sem-animacao")) return;
+      mostrar((atual + 1) % slides.length);
+    }
+
+    function reiniciar() {
+      clearInterval(timer);
+      timer = setInterval(proximo, tempo);
+    }
+
+    bolinhas[0].classList.add("ativo");
+    timer = setInterval(proximo, tempo);
+  </script>
+
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="acessibilidade.js"></script>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget("https://vlibras.gov.br/app");</script>
+
+</body>
+
+</html>
