@@ -8,7 +8,175 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="acessibilidade.css">
+  <script>
+/* ===== Acessibilidade – Pet do Bem =====
+   Botão flutuante no canto inferior direito, presente em todas as páginas.
+   Opções: cores do site, fonte, tamanho, espaço entre linhas e letras,
+   destacar links e pausar o carrossel. A escolha fica salva no navegador. */
+(function () {
+  var CHAVE = "petdobem-a11y-v2";
+  var html = document.documentElement;
+
+  var PADRAO = { tema: "padrao", familia: "padrao", fonte: 0, lh: 0, ls: 0, links: false, pausar: false };
+  var estado = Object.assign({}, PADRAO);
+
+  var TEMAS = [
+    ["padrao", "Padrão"],
+    ["contraste", "Alto contraste"],
+    ["escuro", "Modo escuro"],
+    ["cinza", "Escala de cinza"]
+  ];
+  var FAMILIAS = [
+    ["padrao", "Padrão do site"],
+    ["arial", "Arial"],
+    ["serif", "Com serifa"],
+    ["legivel", "Legível"]
+  ];
+  var PASSOS = {
+    fonte: { rotulo: "Tamanho da letra", niveis: ["100%", "112%", "125%", "150%"] },
+    lh:    { rotulo: "Espaço entre linhas", niveis: ["Padrão", "Médio", "Grande", "Máximo"] },
+    ls:    { rotulo: "Espaço entre letras", niveis: ["Padrão", "Médio", "Grande", "Máximo"] }
+  };
+
+  // Recupera a escolha anterior
+  try {
+    var salvo = JSON.parse(localStorage.getItem(CHAVE));
+    if (salvo) {
+      TEMAS.forEach(function (t) { if (salvo.tema === t[0]) estado.tema = t[0]; });
+      FAMILIAS.forEach(function (f) { if (salvo.familia === f[0]) estado.familia = f[0]; });
+      ["fonte", "lh", "ls"].forEach(function (k) {
+        estado[k] = Math.min(Math.max(parseInt(salvo[k], 10) || 0, 0), 3);
+      });
+      estado.links = !!salvo.links;
+      estado.pausar = !!salvo.pausar;
+    }
+  } catch (e) {}
+
+  var fonteCarregada = false;
+  function carregarFonteLegivel() {
+    if (fonteCarregada) return;
+    fonteCarregada = true;
+    var l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap";
+    document.head.appendChild(l);
+  }
+
+  function marcar(nome, valor) {
+    if (valor) html.setAttribute(nome, valor);
+    else html.removeAttribute(nome);
+  }
+
+  function aplicar() {
+    marcar("data-tema", estado.tema !== "padrao" ? estado.tema : "");
+    marcar("data-familia", estado.familia !== "padrao" ? estado.familia : "");
+    marcar("data-fonte", estado.fonte || "");
+    marcar("data-lh", estado.lh || "");
+    marcar("data-ls", estado.ls || "");
+    marcar("data-links", estado.links ? "1" : "");
+    marcar("data-pausar", estado.pausar ? "1" : "");
+    if (estado.familia === "legivel") carregarFonteLegivel();
+    try { localStorage.setItem(CHAVE, JSON.stringify(estado)); } catch (e) {}
+    atualizarPainel();
+  }
+
+  function atualizarPainel() {
+    var p = document.getElementById("a11y-painel");
+    if (!p) return;
+    p.querySelectorAll("[data-tema]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-tema") === estado.tema);
+    });
+    p.querySelectorAll("[data-familia]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-familia") === estado.familia);
+    });
+    ["fonte", "lh", "ls"].forEach(function (k) {
+      p.querySelector('[data-valor="' + k + '"]').textContent = PASSOS[k].niveis[estado[k]];
+      p.querySelector('[data-passo="' + k + ':-1"]').disabled = estado[k] === 0;
+      p.querySelector('[data-passo="' + k + ':1"]').disabled = estado[k] === 3;
+    });
+    p.querySelector('[data-alternar="links"]').setAttribute("aria-pressed", estado.links);
+    p.querySelector('[data-alternar="pausar"]').setAttribute("aria-pressed", estado.pausar);
+  }
+
+  function opcoes(lista, atributo) {
+    return lista.map(function (o) {
+      return '<button type="button" class="a11y-botao" ' + atributo + '="' + o[0] + '" aria-pressed="false">' + o[1] + "</button>";
+    }).join("");
+  }
+
+  function passo(k) {
+    return '<div class="a11y-grupo"><span class="a11y-rotulo">' + PASSOS[k].rotulo + "</span>" +
+      '<div class="a11y-passo">' +
+      '<button type="button" class="a11y-botao" data-passo="' + k + ':-1" aria-label="Diminuir: ' + PASSOS[k].rotulo + '">−</button>' +
+      '<strong class="a11y-nivel" data-valor="' + k + '" aria-live="polite"></strong>' +
+      '<button type="button" class="a11y-botao" data-passo="' + k + ':1" aria-label="Aumentar: ' + PASSOS[k].rotulo + '">+</button>' +
+      "</div></div>";
+  }
+
+  function criarPainel() {
+    var caixa = document.createElement("div");
+    caixa.className = "a11y";
+    caixa.innerHTML =
+      '<div id="a11y-painel" class="a11y-painel" role="group" aria-label="Opções de acessibilidade" hidden>' +
+        '<div class="a11y-topo"><h2>Acessibilidade</h2>' +
+        '<button type="button" class="a11y-fechar" aria-label="Fechar painel">×</button></div>' +
+        '<div class="a11y-grupo"><span class="a11y-rotulo">Cores do site</span>' +
+          '<div class="a11y-opcoes">' + opcoes(TEMAS, "data-tema") + "</div></div>" +
+        '<div class="a11y-grupo"><span class="a11y-rotulo">Fonte das letras</span>' +
+          '<div class="a11y-opcoes">' + opcoes(FAMILIAS, "data-familia") + "</div></div>" +
+        passo("fonte") + passo("lh") + passo("ls") +
+        '<div class="a11y-grupo"><span class="a11y-rotulo">Outros</span>' +
+          '<button type="button" class="a11y-botao" data-alternar="links" aria-pressed="false">Destacar links</button>' +
+          '<button type="button" class="a11y-botao" data-alternar="pausar" aria-pressed="false">Pausar carrossel</button></div>' +
+        '<button type="button" class="a11y-botao a11y-reset" data-reset="1">Restaurar padrão</button>' +
+      "</div>" +
+      '<button type="button" class="a11y-abrir" aria-expanded="false" aria-controls="a11y-painel">' +
+        '<span aria-hidden="true">Aa</span> Acessibilidade</button>';
+    document.body.appendChild(caixa);
+
+    var painel = caixa.querySelector("#a11y-painel");
+    var abrir = caixa.querySelector(".a11y-abrir");
+
+    function mostrar(sim) {
+      painel.hidden = !sim;
+      abrir.setAttribute("aria-expanded", sim);
+    }
+
+    abrir.addEventListener("click", function () { mostrar(painel.hidden); });
+    caixa.querySelector(".a11y-fechar").addEventListener("click", function () { mostrar(false); abrir.focus(); });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !painel.hidden) { mostrar(false); abrir.focus(); }
+    });
+    document.addEventListener("click", function (e) {
+      if (!painel.hidden && !caixa.contains(e.target)) mostrar(false);
+    });
+
+    painel.addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      if (b.hasAttribute("data-tema")) estado.tema = b.getAttribute("data-tema");
+      else if (b.hasAttribute("data-familia")) estado.familia = b.getAttribute("data-familia");
+      else if (b.hasAttribute("data-passo")) {
+        var partes = b.getAttribute("data-passo").split(":");
+        var k = partes[0];
+        estado[k] = Math.min(Math.max(estado[k] + parseInt(partes[1], 10), 0), 3);
+      } else if (b.hasAttribute("data-alternar")) {
+        var chave = b.getAttribute("data-alternar");
+        estado[chave] = !estado[chave];
+      } else if (b.hasAttribute("data-reset")) {
+        estado = Object.assign({}, PADRAO);
+      } else return;
+      aplicar();
+    });
+
+    atualizarPainel();
+  }
+
+  aplicar(); // aplica as escolhas salvas já no carregamento
+  document.addEventListener("DOMContentLoaded", criarPainel);
+})();
+  </script>
 </head>
 <body>
 
@@ -23,6 +191,7 @@
         <li><a href="adocao.html">Pets em adoção</a></li>
         <li><a href="enderecos.html">Endereços</a></li>
         <li><a href="doacoes.html" aria-current="page">Doações</a></li>
+        <li><a href="index.html#novidades">Novidades</a></li>
       </ul>
     </nav>
   </header>
@@ -38,7 +207,7 @@
       <article class="card sem-foto">
         <div class="card-corpo">
           <h3>Doe via Pix</h3>
-          <p>Chave Pix: 10646019005</p>
+          <p>Chave Pix: coloque-a-aqui@exemplo.com</p>
         </div>
       </article>
       <article class="card sem-foto">
@@ -60,16 +229,6 @@
   <footer class="rodape">
     <p>&copy; 2026 Pet do Bem</p>
   </footer>
-
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="acessibilidade.js"></script>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>new window.VLibras.Widget("https://vlibras.gov.br/app");</script>
 
 </body>
 </html>
